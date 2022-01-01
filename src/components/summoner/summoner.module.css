@@ -1,0 +1,94 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: beige;
+  padding-top: 100px;
+}
+.header {
+  display: flex;
+  width: 60%;
+  height: 150px;
+  border-bottom: 1px solid black;
+}
+.profileIcon {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border: 2px solid gold;
+}
+.profile {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  justify-content: space-between;
+}
+.iconImg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.level {
+  position: absolute;
+  background-color: darkgrey;
+  border: 2px solid gold;
+  color: black;
+  bottom: -10px;
+  left: 60px;
+}
+.summonerId {
+  font-size: 25px;
+}
+.contents {
+  display: flex;
+  width: 70%;
+  margin-top: 20px;
+  border: 1px solid black;
+}
+.rank {
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+  border: 1px solid red;
+}
+.soloRank {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(240, 240, 227);
+}
+
+.soloTierImg {
+  height: 200px;
+}
+.soloRankInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.teamRank {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(240, 240, 227);
+}
+.teamTierImg {
+  height: 200px;
+}
+.teamRankInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.matches {
+  flex: 4;
+  border: 1px solid yellow;
+}
+.match {
+  width: 100%;
+  height: 200px;
+  border: 1px solid red;
+}
