@@ -3,16 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./search.module.css";
 
-const Search = ({ onSearch }) => {
+const Search = () => {
   const inputRef = useRef();
   const navigate = useNavigate();
-  const goToMain = () => {
-    navigate("/summoner");
-  };
+
   const handleSearch = () => {
     const value = inputRef.current.value;
-    onSearch(value);
-    goToMain();
+    navigate(`/summoner?userName=${value}`);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
