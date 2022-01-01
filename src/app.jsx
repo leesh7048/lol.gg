@@ -1,15 +1,16 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styles from "./app.module.css";
-import Search from "./components/search/search";
-import Summoner from "./components/summoner/summoner";
+import SearchPage from "./pages/searchPage/searchPage";
+
+import SummonerPage from "./pages/summonerPage/summonerPage";
 
 function App({ lolApi }) {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Search />} />
-          <Route path="/summoner" element={<Summoner lolApi={lolApi} />} />
+          <Route path="/" element={<SearchPage />} />
+          <Route path="/summoner" element={<SummonerPage lolApi={lolApi} />} />
         </Routes>
       </BrowserRouter>
     </div>
