@@ -5,15 +5,16 @@ import App from "./app";
 import LolApi from "./api/lolApi";
 import axios from "axios";
 
-console.log({ LolApi });
-
-console.log({ API_KEY: process.env.REACT_APP_LOL_API_KEY });
-const httpClient = axios.create({
+const krHttpClient = axios.create({
   baseURL: "https://kr.api.riotgames.com",
   params: { api_key: process.env.REACT_APP_LOL_API_KEY },
 });
-console.log(LolApi);
-const lolApi = new LolApi(httpClient);
+const asiaHttpClient = axios.create({
+  baseURL: "https://asia.api.riotgames.com",
+  params: { api_key: process.env.REACT_APP_LOL_API_KEY },
+});
+
+const lolApi = new LolApi(krHttpClient, asiaHttpClient);
 
 ReactDOM.render(
   <React.StrictMode>
