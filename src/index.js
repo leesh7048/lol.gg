@@ -5,6 +5,12 @@ import App from "./app";
 import LolApi from "./api/lolApi";
 import axios from "axios";
 
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/ko";
+dayjs.extend(relativeTime);
+dayjs.locale("ko");
+
 const krHttpClient = axios.create({
   baseURL: "https://kr.api.riotgames.com",
   params: { api_key: process.env.REACT_APP_LOL_API_KEY },
