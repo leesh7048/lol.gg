@@ -8,7 +8,7 @@ const Profile = ({ summonerProfile }) => {
       <div className={styles.profileIcon}>
         <img
           className={styles.iconImg}
-          src={`http://ddragon.leagueoflegends.com/cdn/11.24.1/img/profileicon/${profileIconId}.png`}
+          src={`http://ddragon.leagueoflegends.com/cdn/12.1.1/img/profileicon/${profileIconId}.png`}
           alt="icon"
         />
         <span className={styles.level}>{summonerLevel}</span>
