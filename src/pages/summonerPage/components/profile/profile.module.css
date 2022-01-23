@@ -1,8 +1,7 @@
 .header {
   display: flex;
-  width: 60%;
+  width: 900px;
   height: 150px;
-  border-bottom: 1px solid black;
 }
 .profileIcon {
   position: relative;
