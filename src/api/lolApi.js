@@ -20,12 +20,12 @@ export default class LolApi {
     return response.data;
   }
 
-  async matches(puuid) {
+  async matches(puuid, matchPage) {
     const response = await this.asiaLolApi.get(
       `lol/match/v5/matches/by-puuid/${puuid}/ids`,
       {
         params: {
-          start: 0,
+          start: matchPage * 10,
           count: 10,
         },
       }
