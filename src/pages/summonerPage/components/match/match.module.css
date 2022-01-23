@@ -1,0 +1,165 @@
+.matches {
+  margin-left: 10px;
+}
+.matchWin {
+  display: flex;
+  height: 150px;
+  margin-bottom: 10px;
+  background-color: rgb(177, 177, 241);
+}
+.matchLose {
+  display: flex;
+  height: 150px;
+  margin-bottom: 10px;
+  background-color: rgb(228, 181, 181);
+}
+.reMatch {
+  display: flex;
+  height: 150px;
+  margin-bottom: 10px;
+  background-color: rgb(212, 209, 209);
+}
+.gameStats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  width: 80px;
+  color: #555555;
+}
+.gameResultWin {
+  color: rgb(13, 13, 143);
+}
+.gameResultLose {
+  color: rgb(116, 7, 7);
+}
+.gameRestart {
+  color: black;
+}
+
+.gameSettingInfo {
+  display: grid;
+  place-items: center;
+  place-content: center;
+  grid-template-columns: 45px 25px 25px;
+
+  grid-gap: 3px;
+}
+.championImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+.spells {
+}
+.spellImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.runes {
+}
+.runImg1 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: black;
+}
+.runImg2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.082);
+}
+.championName {
+  grid-column: 1/4;
+  font-size: 12px;
+  color: #555555;
+}
+.kdaBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+}
+.grade {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}
+.kda {
+  margin-bottom: 10px;
+}
+.stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+}
+.controlWard {
+  font-size: 12px;
+}
+.items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 170px;
+}
+.itemList {
+  display: grid;
+  grid-template-columns: repeat(4, 30px);
+  grid-template-rows: repeat(2, 30px);
+  grid-gap: 3px;
+}
+.item {
+  width: 30px;
+  height: 30px;
+  background-color: #807d7d71;
+  border-radius: 10px;
+}
+
+.item:nth-child(7) {
+  grid-row-start: 1;
+  grid-column-end: 5;
+}
+.itemImg {
+  border-radius: 10px;
+
+  width: 100%;
+  height: 100%;
+}
+.followPlayers {
+  display: flex;
+  margin-left: 10px;
+  width: 200px;
+}
+.summoner {
+  display: grid;
+  grid-template-columns: 18px 82px;
+  grid-template-rows: 18px;
+  padding-bottom: 3px;
+}
+.blueTeam,
+.redTeam {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100px;
+}
+.summonerChampionName {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  font-size: 12px;
+}
+.summonerLink {
+  text-decoration: none;
+  color: #555555;
+}
