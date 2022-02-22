@@ -1,16 +1,18 @@
-.matches {
-  margin-left: 10px;
+.matche {
+  display: flex;
+  flex-direction: column;
 }
 .matchWin {
   display: flex;
   height: 150px;
-  margin-bottom: 10px;
+  width: 100%;
+
   background-color: rgb(177, 177, 241);
 }
 .matchLose {
   display: flex;
   height: 150px;
-  margin-bottom: 10px;
+  width: 100%;
   background-color: rgb(228, 181, 181);
 }
 .reMatch {
@@ -51,15 +53,32 @@
   height: 100%;
   border-radius: 20px;
 }
-.spells {
+.spell {
+  position: relative;
 }
+
 .spellImg {
   width: 100%;
   height: 100%;
   border-radius: 50%;
 }
-.runes {
+.openSpellTooltip {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: black;
+  font-size: 20px;
+  color: white;
+  width: 200px;
+  z-index: 1;
+  transform: translateX(-100px);
 }
+.closeSpellTooltip {
+  display: none;
+}
+
 .runImg1 {
   width: 100%;
   height: 100%;
@@ -82,7 +101,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100px;
+  width: 80px;
 }
 .grade {
   display: flex;
@@ -109,7 +128,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 170px;
+  width: 130px;
 }
 .itemList {
   display: grid;
@@ -158,8 +177,32 @@
   overflow: hidden;
   width: 100%;
   font-size: 12px;
+  padding-left: 5px;
 }
 .summonerLink {
   text-decoration: none;
   color: #555555;
+}
+.statsBtn {
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-size: 22px;
+}
+.winStatsBtn {
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-size: 22px;
+  background-color: rgb(151, 153, 243);
+}
+.loseStatsBtn {
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-size: 22px;
+  background-color: rgb(238, 125, 125);
 }
