@@ -6,7 +6,8 @@ import Profile from "./components/profile/profile";
 import styles from "./summonerPage.module.css";
 
 import Rank from "./components/rank/rank";
-import Match from "./components/match/match";
+import Matches from "./components/matches/matches";
+import SearchBar from "./components/searchBar/searchBar";
 
 const SummonerPage = ({ lolApi }) => {
   const [summonerProfile, setSummonerProfile] = useState({});
@@ -27,8 +28,9 @@ const SummonerPage = ({ lolApi }) => {
 
   const getSummonerProfile = async () => {
     try {
-      console.log(encodeURI(getManipulatedUserName(userName)));
-      const summoner = await lolApi.summoner(getManipulatedUserName(userName));
+      const summoner = await lolApi.summoner(
+        getManipulatedUserName(decodeURI(userName))
+      );
       setSummonerProfile(summoner);
     } catch (error) {
       setError(error);
@@ -51,12 +53,9 @@ const SummonerPage = ({ lolApi }) => {
     setMatchPage(matchPage + 1);
   };
 
-  const gameModeHandle = (e) => {
-    console.log(e);
-  };
-
   useEffect(() => {
     if (userName) {
+      setMatchInfo([]);
       getSummonerProfile();
     } else {
       navigate("/", { replace: true });
@@ -67,11 +66,18 @@ const SummonerPage = ({ lolApi }) => {
     if (!summonerProfile.puuid || !summonerProfile.id) return;
 
     const getMatchInfo = async () => {
-      const leagueIds = await lolApi.matches(summonerProfile.puuid, matchPage);
-      const newMatchInfo = await Promise.all(
-        leagueIds.map((id) => lolApi.matchInfo(id))
-      );
-      setMatchInfo([...matchInfo, ...newMatchInfo]);
+      try {
+        const leagueIds = await lolApi.matches(
+          summonerProfile.puuid,
+          matchPage
+        );
+        const newMatchInfo = await Promise.all(
+          leagueIds.map((id) => lolApi.matchInfo(id))
+        );
+        setMatchInfo([...matchInfo, ...newMatchInfo]);
+      } catch (error) {
+        setError(error);
+      }
     };
 
     getRankInfo(summonerProfile.id);
@@ -84,15 +90,16 @@ const SummonerPage = ({ lolApi }) => {
         <div>등록되지 않은 소환사입니다. 오타를 확인 후 다시 검색해주세요.</div>
       ) : (
         <>
+          <SearchBar />
           <Profile summonerProfile={summonerProfile} />
-          <div className={styles.bar}></div>
+
           <div className={styles.contents}>
             <Rank soloRank={soloRank} teamRank={teamRank} />
-            <Match
+            <Matches
               matchInfo={matchInfo}
               summonerProfile={summonerProfile}
               addMatchCount={addMatchCount}
-              gameModeHandle={gameModeHandle}
+              lolApi={lolApi}
             />
           </div>
         </>
