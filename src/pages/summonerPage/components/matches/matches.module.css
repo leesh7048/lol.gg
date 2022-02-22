@@ -1,0 +1,15 @@
+.matches {
+  margin-left: 10px;
+  width: 800px;
+}
+.addMatchBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(219, 213, 213);
+  height: 70px;
+  cursor: pointer;
+}
+.addMatchBtn:hover {
+  background-color: rgb(175, 170, 170);
+}
