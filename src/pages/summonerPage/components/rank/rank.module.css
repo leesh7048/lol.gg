@@ -6,12 +6,13 @@
 .soloRank {
   display: flex;
   flex-direction: row;
-  background-color: rgb(240, 240, 227);
+  background-color: rgb(202, 202, 199);
   margin-bottom: 10px;
+  font-size: 14px;
 }
 
 .soloTierImg {
-  height: 200px;
+  height: 146px;
 }
 .soloRankInfo {
   display: flex;
@@ -21,10 +22,11 @@
 .teamRank {
   display: flex;
   flex-direction: row;
-  background-color: rgb(240, 240, 227);
+  background-color: rgb(202, 202, 199);
+  font-size: 14px;
 }
 .teamTierImg {
-  height: 200px;
+  height: 150px;
 }
 .teamRankInfo {
   display: flex;
