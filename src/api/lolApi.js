@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export default class LolApi {
   constructor(krHttpClient, asiaHttpClient) {
     this.krLolApi = krHttpClient;
@@ -25,8 +27,8 @@ export default class LolApi {
       `lol/match/v5/matches/by-puuid/${puuid}/ids`,
       {
         params: {
-          start: matchPage * 10,
-          count: 10,
+          start: matchPage * 3,
+          count: 3,
         },
       }
     );
@@ -39,5 +41,12 @@ export default class LolApi {
       `lol/match/v5/matches/${leagueId}`
     );
     return response.data;
+  }
+
+  async spellInfo() {
+    const response = await axios.get(
+      "https://ddragon.leagueoflegends.com/cdn/12.4.1/data/ko_KR/summoner.json"
+    );
+    return response.data.data;
   }
 }
