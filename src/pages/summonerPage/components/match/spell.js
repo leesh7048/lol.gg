@@ -1,6 +1,6 @@
 export const SPELL = {
   1: "SummonerBoost", //정화
-  2: "SummonerBarrier", //방어막
+  21: "SummonerBarrier", //방어막
   14: "SummonerDot", //점화
   3: "SummonerExhaust", //탈진
   4: "SummonerFlash", //점멸
