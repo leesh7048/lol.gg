@@ -16,17 +16,6 @@
   font-size: 100px;
   margin-bottom: 20px;
 }
-.form {
-  display: flex;
-}
-.input {
+.searchFormBox {
   width: 500px;
-  height: 100%;
-  outline: none;
-}
-.searchBtn {
-  background-color: white;
-  outline: none;
-  font-size: 20px;
-  border: 1px solid black;
 }
