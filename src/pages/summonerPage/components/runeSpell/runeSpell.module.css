@@ -1,0 +1,29 @@
+.runeSpell:nth-child(3) {
+  position: relative;
+  grid-row-start: 1;
+  grid-column-start: 2;
+}
+
+.runeSpellImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: black;
+}
+
+.openSpellTooltip {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: black;
+  font-size: 20px;
+  color: white;
+  width: 200px;
+  z-index: 1;
+  transform: translateX(-100px);
+}
+.closeSpellTooltip {
+  display: none;
+}
