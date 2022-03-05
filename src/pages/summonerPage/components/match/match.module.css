@@ -53,44 +53,7 @@
   height: 100%;
   border-radius: 20px;
 }
-.spell {
-  position: relative;
-}
 
-.spellImg {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-.openSpellTooltip {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  background-color: black;
-  font-size: 20px;
-  color: white;
-  width: 200px;
-  z-index: 1;
-  transform: translateX(-100px);
-}
-.closeSpellTooltip {
-  display: none;
-}
-
-.runImg1 {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background-color: black;
-}
-.runImg2 {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.082);
-}
 .championName {
   grid-column: 1/4;
   font-size: 12px;
@@ -205,4 +168,10 @@
   align-items: flex-end;
   font-size: 22px;
   background-color: rgb(238, 125, 125);
+}
+.runeSpell {
+  display: grid;
+  grid-template-columns: repeat(2, 20px);
+  grid-template-rows: repeat(2, 20px);
+  margin-left: 15px;
 }

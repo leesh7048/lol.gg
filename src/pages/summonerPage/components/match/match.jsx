@@ -1,20 +1,18 @@
 import { useEffect, useState } from "react";
 import MatchStats from "../matchStats/matchStats";
 import styles from "./match.module.css";
-import { SPELL } from "./spell";
-import { RUNES } from "./runes";
 import { CHAMPIONS } from "./champions";
 import { QUEUE_TYPE } from "./queueType";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import dayjs from "dayjs";
+import RuneSpell from "../runeSpell/runeSpell.jsx";
 
 const Match = ({ infos, summonerProfile, lolApi }) => {
   const [isActive, setIsActive] = useState(false);
   const [userTeamStats, setUserTeamStats] = useState([]);
   const [opposingTeamStats, setOpposingTeamStats] = useState([]);
-  const [spellInfo, setSpellInfo] = useState({});
-  const [tooltipIsActive, setTooltipIsActive] = useState(false);
-  console.log(infos);
+  const [runeSpellInfo, setRuneSpellInfo] = useState([]);
+
   const formatChampionName = (championName) => {
     if (championName === "FiddleSticks") {
       return (
@@ -24,13 +22,16 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
     return championName;
   };
 
-  const getSpellInfo = async () => {
-    const spell = await lolApi.spellInfo();
-    setSpellInfo(spell);
-  };
+  const getRuneSpellInfo = async () => {
+    const rune = lolApi.runeInfo();
+    const spell = lolApi.spellInfo();
+    const [_rune, _spell] = await Promise.all([rune, spell]);
 
+    setRuneSpellInfo([_rune, Object.values(_spell)]);
+  };
+  // console.log(runeSpellInfo);
   useEffect(() => {
-    getSpellInfo();
+    getRuneSpellInfo();
   }, []);
 
   const getTeamStats = () => {
@@ -50,12 +51,6 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
   const getMyGameInfo = (infos) =>
     infos.info.participants.find((a) => a.puuid === summonerProfile.puuid);
 
-  const detailInfo = (info) =>
-    Object.values(info).find(
-      (b) => b.key === String(getMyGameInfo(infos).summoner1Id)
-    );
-  console.log(detailInfo(spellInfo));
-
   const handleStatsBtn = () => {
     setIsActive(!isActive);
     if (!isActive) {
@@ -63,15 +58,106 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
     }
   };
 
-  const onMouseOver = () => {
-    setTooltipIsActive(true);
-  };
-  const onMouseLeave = () => {
-    setTooltipIsActive(false);
-  };
+  // const getGameSpell = (spellInfo) => {
+  //   spellInfo?.find((b) => b.key === String(getMyGameInfo(infos).summoner1Id))
+  //     ?.name;
+  // };
+  console.log(
+    runeSpellInfo[0]?.find(
+      (a) => a.id === getMyGameInfo(infos).perks.styles[0].style
+    ).name
+  );
+  console.log(getMyGameInfo(infos).perks.styles[0].style);
 
-  console.log(tooltipIsActive);
-  console.log(spellInfo);
+  const runeSpellArr = [
+    {
+      name: "firstRune",
+      runeSpellInfo: runeSpellInfo[0],
+      imgUrl: `https://ddragon.leagueoflegends.com/cdn/img/
+${
+  runeSpellInfo[0]
+    ?.find((a) => a.id === getMyGameInfo(infos).perks.styles[0].style)
+    .slots.map((a) => a.runes)
+    .flat()
+    .find(
+      (a) => a.id === getMyGameInfo(infos).perks.styles[0].selections[0].perk
+    ).icon
+}`,
+      runeSpellName: runeSpellInfo[0]
+        ?.find((a) => a.id === getMyGameInfo(infos).perks.styles[0].style)
+        .slots.map((a) => a.runes)
+        .flat()
+        .find(
+          (a) =>
+            a.id === getMyGameInfo(infos).perks.styles[0].selections[0].perk
+        ).name,
+      runeSpellDesc: runeSpellInfo[0]
+        ?.find((a) => a.id === getMyGameInfo(infos).perks.styles[0].style)
+        .slots.map((a) => a.runes)
+        .flat()
+        .find(
+          (a) =>
+            a.id === getMyGameInfo(infos).perks.styles[0].selections[0].perk
+        )
+        .longDesc.replace(/<\/?[^>]+(>|$)/g, ""),
+    },
+    {
+      name: "secondRune",
+      runeSpellInfo: runeSpellInfo[0],
+      imgUrl: `https://ddragon.leagueoflegends.com/cdn/img/${
+        runeSpellInfo[0]?.find(
+          (a) => a.id === getMyGameInfo(infos).perks.styles[1].style
+        ).icon
+      }`,
+
+      runeSpellName: runeSpellInfo[0]?.find(
+        (a) => a.id === getMyGameInfo(infos).perks.styles[1].style
+      ).name,
+      runeSpellDesc: "",
+    },
+    {
+      name: "firstSpell",
+      runeSpellInfo: runeSpellInfo[1],
+      imgUrl: `https://ddragon.leagueoflegends.com/cdn/12.4.1/img/spell/${
+        runeSpellInfo[1]?.find(
+          (b) => b.key === String(getMyGameInfo(infos).summoner1Id)
+        )?.id
+      }.png`,
+      runeSpellName: runeSpellInfo[1]?.find(
+        (b) => b.key === String(getMyGameInfo(infos).summoner1Id)
+      )?.name,
+      runeSpellDesc: runeSpellInfo[1]?.find(
+        (b) => b.key === String(getMyGameInfo(infos).summoner1Id)
+      )?.description,
+    },
+    {
+      name: "SecondSpell",
+      runeSpellInfo: runeSpellInfo[1],
+      imgUrl: `https://ddragon.leagueoflegends.com/cdn/12.4.1/img/spell/${
+        runeSpellInfo[1]?.find(
+          (b) => b.key === String(getMyGameInfo(infos).summoner2Id)
+        )?.id
+      }.png`,
+      runeSpellName: runeSpellInfo[1]?.find(
+        (b) => b.key === String(getMyGameInfo(infos).summoner2Id)
+      )?.name,
+      runeSpellDesc: runeSpellInfo[1]?.find(
+        (b) => b.key === String(getMyGameInfo(infos).summoner2Id)
+      )?.description,
+    },
+  ];
+
+  console.log(
+    runeSpellInfo[0]
+      ?.find((a) => a.id === getMyGameInfo(infos).perks.styles[0].style)
+      .slots.map((a) => a.runes)
+      .flat()
+      .find(
+        (a) => a.id === getMyGameInfo(infos).perks.styles[0].selections[0].perk
+      )
+      .longDesc.replace(/<\/?[^>]+(>|$)/g, "")
+  );
+
   return (
     <div key={infos.metadata.matchId} className={styles.match}>
       <div
@@ -125,7 +211,17 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
               alt=""
             />
           </div>
-          <div className={styles.spells}>
+          <div className={styles.runeSpell}>
+            {runeSpellInfo.length &&
+              runeSpellArr.map((runeSpellInfo) => (
+                <RuneSpell
+                  runeSpellInfo={runeSpellInfo}
+                  infos={infos}
+                  getMyGameInfo={getMyGameInfo}
+                />
+              ))}
+          </div>
+          {/* <div className={styles.spells}>
             <div
               className={styles.spell}
               onMouseOver={onMouseOver}
@@ -194,7 +290,7 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
                 alt=""
               />
             </div>
-          </div>
+          </div> */}
           <div className={styles.championName}>
             <span>{CHAMPIONS[getMyGameInfo(infos).championId]}</span>
           </div>
