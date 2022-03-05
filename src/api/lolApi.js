@@ -49,4 +49,11 @@ export default class LolApi {
     );
     return response.data.data;
   }
+
+  async runeInfo() {
+    const response = await axios.get(
+      "https://ddragon.leagueoflegends.com/cdn/12.4.1/data/ko_KR/runesReforged.json"
+    );
+    return response.data;
+  }
 }
