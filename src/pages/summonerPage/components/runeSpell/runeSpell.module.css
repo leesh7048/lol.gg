@@ -1,5 +1,4 @@
 .runeSpell:nth-child(3) {
-  position: relative;
   grid-row-start: 1;
   grid-column-start: 2;
 }
@@ -11,19 +10,24 @@
   background-color: black;
 }
 
-.openSpellTooltip {
+.openTooltip {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  max-width: 300px;
+  padding: 10px;
+
   position: absolute;
   background-color: black;
-  font-size: 20px;
+  font-size: 12px;
   color: white;
-  width: 200px;
+
   z-index: 1;
-  transform: translateX(-100px);
+  /* transform: translateX(-100px); */
 }
-.closeSpellTooltip {
+.closeTooltip {
   display: none;
+}
+.runeSpellName {
+  color: gold;
 }
