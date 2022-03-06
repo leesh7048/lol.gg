@@ -8,6 +8,7 @@ const Matches = ({ matchInfo, summonerProfile, addMatchCount, lolApi }) => {
     <div className={styles.matches}>
       {matchInfo.map((infos) => (
         <Match
+          key={infos.metadata.matchId}
           infos={infos}
           summonerProfile={summonerProfile}
           lolApi={lolApi}
