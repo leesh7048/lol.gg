@@ -56,4 +56,12 @@ export default class LolApi {
     );
     return response.data;
   }
+
+  async itemsInfo() {
+    const response = await axios.get(
+      "http://ddragon.leagueoflegends.com/cdn/12.4.1/data/ko_KR/item.json"
+    );
+
+    return response.data.data;
+  }
 }
