@@ -4,39 +4,29 @@ import styles from "./runeSpell.module.css";
 const RuneSpell = ({ runeSpellInfo, infos, getMyGameInfo }) => {
   const [tooltipIsActive, setTooltipIsActive] = useState(false);
 
-  const detailInfo = (info) =>
-    Object.values(info).find(
-      (b) => b.key === String(getMyGameInfo(infos).summoner1Id)
-    );
-
   const onMouseOver = () => {
     setTooltipIsActive(true);
   };
   const onMouseLeave = () => {
     setTooltipIsActive(false);
   };
-  const createMarkup = () => {
+  const markup = () => {
     return {
       __html: `${
         runeSpellInfo.runeSpellInfo
-          ?.find((a) => a.id === getMyGameInfo(infos).perks.styles[0].style)
-          .slots.map((a) => a.runes)
+          ?.find(
+            (info) => info.id === getMyGameInfo(infos).perks.styles[0].style
+          )
+          ?.slots.map((a) => a.runes)
           .flat()
           .find(
-            (a) =>
-              a.id === getMyGameInfo(infos).perks.styles[0].selections[0].perk
+            (info) =>
+              info.id ===
+              getMyGameInfo(infos).perks.styles[0].selections[0].perk
           ).longDesc
       }`,
     };
   };
-
-  //   console.log("runeSpellInfo.runeSpellInfo", runeSpellInfo.runeSpellInfo);
-  //   console.log("mygame", getMyGameInfo(infos));
-  console.log(
-    runeSpellInfo.runeSpellInfo?.find(
-      (b) => b.key === String(getMyGameInfo(infos).summoner1Id)
-    )?.name
-  );
 
   return (
     <div
@@ -47,33 +37,17 @@ const RuneSpell = ({ runeSpellInfo, infos, getMyGameInfo }) => {
       <img className={styles.runeSpellImg} src={runeSpellInfo.imgUrl} alt="" />
 
       <div
-        className={
-          tooltipIsActive ? styles.openSpellTooltip : styles.closeSpellTooltip
-        }
+        className={tooltipIsActive ? styles.openTooltip : styles.closeTooltip}
       >
-        <span>{runeSpellInfo.runeSpellName}</span>
-        <span>{runeSpellInfo?.runeSpellDesc}</span>
-        {/* <span dangerouslySetInnerHTML={createMarkup()}> */}
-        {
-          //   runeSpellInfo.runeSpellInfo?.find(
-          //     (b) => b.key === String(getMyGameInfo(infos).summoner1Id)
-          //   )?.description
-          //
-          //   runeSpellInfo.runeSpellInfo?.find(
-          //     (b) => b.key === String(getMyGameInfo(infos).summoner2Id)
-          //   )?.description
-          //
-          //   runeSpellInfo.runeSpellInfo
-          //     ?.find((a) => a.id === getMyGameInfo(infos).perks.styles[0].style)
-          //     .slots.map((a) => a.runes)
-          //     .flat()
-          //     .find(
-          //       (a) =>
-          //         a.id ===
-          //         getMyGameInfo(infos).perks.styles[0].selections[0].perk
-          //     ).longDesc
-        }
-        {/* </span> */}
+        <span className={styles.runeSpellName}>
+          {runeSpellInfo?.runeSpellName}
+        </span>
+
+        {runeSpellInfo.name === "firstRune" ? (
+          <span dangerouslySetInnerHTML={markup()}></span>
+        ) : (
+          <span>{runeSpellInfo?.runeSpellDesc}</span>
+        )}
       </div>
     </div>
   );
