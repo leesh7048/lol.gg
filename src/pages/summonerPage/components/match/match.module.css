@@ -99,23 +99,7 @@
   grid-template-rows: repeat(2, 30px);
   grid-gap: 3px;
 }
-.item {
-  width: 30px;
-  height: 30px;
-  background-color: #807d7d71;
-  border-radius: 10px;
-}
 
-.item:nth-child(7) {
-  grid-row-start: 1;
-  grid-column-end: 5;
-}
-.itemImg {
-  border-radius: 10px;
-
-  width: 100%;
-  height: 100%;
-}
 .followPlayers {
   display: flex;
   margin-left: 10px;

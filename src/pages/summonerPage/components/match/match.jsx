@@ -6,12 +6,14 @@ import { QUEUE_TYPE } from "./queueType";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import dayjs from "dayjs";
 import RuneSpell from "../runeSpell/runeSpell.jsx";
+import Items from "../items/items";
 
 const Match = ({ infos, summonerProfile, lolApi }) => {
   const [isActive, setIsActive] = useState(false);
   const [userTeamStats, setUserTeamStats] = useState([]);
   const [opposingTeamStats, setOpposingTeamStats] = useState([]);
   const [runeSpellInfo, setRuneSpellInfo] = useState([]);
+  const [itemsInfo, setItemsInfo] = useState({});
 
   const formatChampionName = (championName) => {
     if (championName === "FiddleSticks") {
@@ -29,9 +31,14 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
 
     setRuneSpellInfo([_rune, Object.values(_spell)]);
   };
-  // console.log(runeSpellInfo);
+  const getItemsInfo = async () => {
+    const items = await lolApi.itemsInfo();
+    setItemsInfo(items);
+  };
+
   useEffect(() => {
     getRuneSpellInfo();
+    getItemsInfo();
   }, []);
 
   const getTeamStats = () => {
@@ -58,17 +65,6 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
     }
   };
 
-  // const getGameSpell = (spellInfo) => {
-  //   spellInfo?.find((b) => b.key === String(getMyGameInfo(infos).summoner1Id))
-  //     ?.name;
-  // };
-  console.log(
-    runeSpellInfo[0]?.find(
-      (a) => a.id === getMyGameInfo(infos).perks.styles[0].style
-    ).name
-  );
-  console.log(getMyGameInfo(infos).perks.styles[0].style);
-
   const runeSpellArr = [
     {
       name: "firstRune",
@@ -91,15 +87,6 @@ ${
           (a) =>
             a.id === getMyGameInfo(infos).perks.styles[0].selections[0].perk
         ).name,
-      runeSpellDesc: runeSpellInfo[0]
-        ?.find((a) => a.id === getMyGameInfo(infos).perks.styles[0].style)
-        .slots.map((a) => a.runes)
-        .flat()
-        .find(
-          (a) =>
-            a.id === getMyGameInfo(infos).perks.styles[0].selections[0].perk
-        )
-        .longDesc.replace(/<\/?[^>]+(>|$)/g, ""),
     },
     {
       name: "secondRune",
@@ -146,17 +133,15 @@ ${
       )?.description,
     },
   ];
-
-  console.log(
-    runeSpellInfo[0]
-      ?.find((a) => a.id === getMyGameInfo(infos).perks.styles[0].style)
-      .slots.map((a) => a.runes)
-      .flat()
-      .find(
-        (a) => a.id === getMyGameInfo(infos).perks.styles[0].selections[0].perk
-      )
-      .longDesc.replace(/<\/?[^>]+(>|$)/g, "")
-  );
+  const itemArr = [
+    { key: 1, itemNum: getMyGameInfo(infos).item0 },
+    { key: 2, itemNum: getMyGameInfo(infos).item1 },
+    { key: 3, itemNum: getMyGameInfo(infos).item2 },
+    { key: 4, itemNum: getMyGameInfo(infos).item3 },
+    { key: 5, itemNum: getMyGameInfo(infos).item4 },
+    { key: 6, itemNum: getMyGameInfo(infos).item5 },
+    { key: 7, itemNum: getMyGameInfo(infos).item6 },
+  ];
 
   return (
     <div key={infos.metadata.matchId} className={styles.match}>
@@ -215,82 +200,14 @@ ${
             {runeSpellInfo.length &&
               runeSpellArr.map((runeSpellInfo) => (
                 <RuneSpell
+                  key={runeSpellInfo.name}
                   runeSpellInfo={runeSpellInfo}
                   infos={infos}
                   getMyGameInfo={getMyGameInfo}
                 />
               ))}
           </div>
-          {/* <div className={styles.spells}>
-            <div
-              className={styles.spell}
-              onMouseOver={onMouseOver}
-              onMouseLeave={onMouseLeave}
-            >
-              <img
-                className={styles.spellImg}
-                src={`https://ddragon.leagueoflegends.com/cdn/12.4.1/img/spell/${
-                  Object.values(spellInfo).find(
-                    (b) => b.key === String(getMyGameInfo(infos).summoner1Id)
-                  )?.id
-                }.png`}
-                alt="spell1"
-              />
-              <div
-                className={
-                  tooltipIsActive
-                    ? styles.openSpellTooltip
-                    : styles.closeSpellTooltip
-                }
-              >
-                <span>
-                  {
-                    Object.values(spellInfo).find(
-                      (b) => b.key === String(getMyGameInfo(infos).summoner1Id)
-                    )?.name
-                  }
-                </span>
-                <span>
-                  {
-                    Object.values(spellInfo).find(
-                      (b) => b.key === String(getMyGameInfo(infos).summoner1Id)
-                    )?.description
-                  }
-                </span>
-              </div>
-            </div>
-            <div className={styles.spell}>
-              <img
-                className={styles.spellImg}
-                src={`https://ddragon.leagueoflegends.com/cdn/12.4.1/img/spell/${
-                  Object.values(spellInfo).find(
-                    (b) => b.key === String(getMyGameInfo(infos).summoner2Id)
-                  )?.id
-                }.png`}
-                alt="spell2"
-              />
-            </div>
-          </div>
-          <div className={styles.runes}>
-            <div className={styles.run}>
-              <img
-                className={styles.runImg1}
-                src={`https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/${
-                  RUNES[getMyGameInfo(infos).perks.styles[0].selections[0].perk]
-                }.png`}
-                alt=""
-              />
-            </div>
-            <div className={styles.run}>
-              <img
-                className={styles.runImg2}
-                src={`https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/${
-                  RUNES[getMyGameInfo(infos).perks.styles[1].style]
-                }.png`}
-                alt=""
-              />
-            </div>
-          </div> */}
+
           <div className={styles.championName}>
             <span>{CHAMPIONS[getMyGameInfo(infos).championId]}</span>
           </div>
@@ -337,99 +254,13 @@ ${
         </div>
         <div className={styles.items}>
           <div className={styles.itemList}>
-            <div className={styles.item}>
-              {getMyGameInfo(infos).item0 !== 0 ? (
-                <img
-                  className={styles.itemImg}
-                  src={`https://ddragon.leagueoflegends.com/cdn/12.4.1/img/item/${
-                    getMyGameInfo(infos).item0
-                  }.png`}
-                  alt=""
-                />
-              ) : (
-                ""
-              )}
-            </div>
-            <div className={styles.item}>
-              {getMyGameInfo(infos).item1 !== 0 ? (
-                <img
-                  className={styles.itemImg}
-                  src={`https://ddragon.leagueoflegends.com/cdn/12.4.1/img/item/${
-                    getMyGameInfo(infos).item1
-                  }.png`}
-                  alt=""
-                />
-              ) : (
-                ""
-              )}
-            </div>
-            <div className={styles.item}>
-              {getMyGameInfo(infos).item2 !== 0 ? (
-                <img
-                  className={styles.itemImg}
-                  src={`https://ddragon.leagueoflegends.com/cdn/12.4.1/img/item/${
-                    getMyGameInfo(infos).item2
-                  }.png`}
-                  alt=""
-                />
-              ) : (
-                ""
-              )}
-            </div>
-            <div className={styles.item}>
-              {getMyGameInfo(infos).item3 !== 0 ? (
-                <img
-                  className={styles.itemImg}
-                  src={`https://ddragon.leagueoflegends.com/cdn/12.4.1/img/item/${
-                    getMyGameInfo(infos).item3
-                  }.png`}
-                  alt=""
-                />
-              ) : (
-                ""
-              )}
-            </div>
-            <div className={styles.item}>
-              {getMyGameInfo(infos).item4 !== 0 ? (
-                <img
-                  className={styles.itemImg}
-                  src={`https://ddragon.leagueoflegends.com/cdn/12.4.1/img/item/${
-                    getMyGameInfo(infos).item4
-                  }.png`}
-                  alt=""
-                />
-              ) : (
-                ""
-              )}
-            </div>
-            <div className={styles.item}>
-              {infos.info.participants.find(
-                (a) => a.puuid === summonerProfile.puuid
-              ).item5 !== 0 ? (
-                <img
-                  className={styles.itemImg}
-                  src={`https://ddragon.leagueoflegends.com/cdn/12.4.1/img/item/${
-                    getMyGameInfo(infos).item5
-                  }.png`}
-                  alt=""
-                />
-              ) : (
-                ""
-              )}
-            </div>
-            <div className={styles.item}>
-              {getMyGameInfo(infos).item6 !== 0 ? (
-                <img
-                  className={styles.itemImg}
-                  src={`https://ddragon.leagueoflegends.com/cdn/12.4.1/img/item/${
-                    getMyGameInfo(infos).item6
-                  }.png`}
-                  alt=""
-                />
-              ) : (
-                ""
-              )}
-            </div>
+            {itemArr.map((itemInfo) => (
+              <Items
+                itemsInfo={itemsInfo}
+                itemNum={itemInfo.itemNum}
+                key={itemInfo.key}
+              />
+            ))}
           </div>
           <div className={styles.controlWard}>
             <span>제어와드 </span>
@@ -439,7 +270,7 @@ ${
         <div className={styles.followPlayers}>
           <div className={styles.blueTeam}>
             {infos.info.participants.slice(0, 5).map((blueTeam) => (
-              <div className={styles.summoner}>
+              <div className={styles.summoner} key={blueTeam.puuid}>
                 <div>
                   <img
                     className={styles.championImg}
@@ -462,7 +293,7 @@ ${
           </div>
           <div className={styles.redTeam}>
             {infos.info.participants.slice(5, 10).map((redTeam) => (
-              <div className={styles.summoner}>
+              <div className={styles.summoner} key={redTeam.puuid}>
                 <div>
                   <img
                     className={styles.championImg}
