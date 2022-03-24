@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import MatchStats from "../matchStats/matchStats";
 import styles from "./match.module.css";
-import { CHAMPIONS } from "./champions";
+
 import { QUEUE_TYPE } from "./queueType";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import dayjs from "dayjs";
@@ -14,6 +14,7 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
   const [opposingTeamStats, setOpposingTeamStats] = useState([]);
   const [runeSpellInfo, setRuneSpellInfo] = useState([]);
   const [itemsInfo, setItemsInfo] = useState({});
+  const [championInfo, setChampionInfo] = useState({});
 
   const formatChampionName = (championName) => {
     if (championName === "FiddleSticks") {
@@ -22,6 +23,11 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
       );
     }
     return championName;
+  };
+
+  const getChampionInfo = async () => {
+    const champion = await lolApi.championInfo();
+    setChampionInfo(champion);
   };
 
   const getRuneSpellInfo = async () => {
@@ -39,6 +45,7 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
   useEffect(() => {
     getRuneSpellInfo();
     getItemsInfo();
+    getChampionInfo();
   }, []);
 
   const getTeamStats = () => {
@@ -56,7 +63,9 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
   };
 
   const getMyGameInfo = (infos) =>
-    infos.info.participants.find((a) => a.puuid === summonerProfile.puuid);
+    infos.info.participants.find(
+      (summoner) => summoner.puuid === summonerProfile.puuid
+    );
 
   const handleStatsBtn = () => {
     setIsActive(!isActive);
@@ -65,74 +74,78 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
     }
   };
 
+  const runeSpellInfoFunction = {
+    firstRuneInfo: function (myGameInfo) {
+      return runeSpellInfo[0]
+        ?.find((runeInfos) => runeInfos.id === myGameInfo.perks.styles[0].style)
+        .slots.map((slot) => slot.runes)
+        .flat()
+        .find(
+          (runeInfo) =>
+            runeInfo.id === myGameInfo.perks.styles[0].selections[0].perk
+        );
+    },
+    secondRuneInfo: function (myGameInfo) {
+      return runeSpellInfo[0]?.find(
+        (runeInfo) => runeInfo.id === myGameInfo.perks.styles[1].style
+      );
+    },
+    firstSpellInfo: function (myGameInfo) {
+      return runeSpellInfo[1]?.find(
+        (spellInfo) => spellInfo.key === String(myGameInfo.summoner1Id)
+      );
+    },
+    secondSpellInfo: function (myGameInfo) {
+      return runeSpellInfo[1]?.find(
+        (spellInfo) => spellInfo.key === String(myGameInfo.summoner2Id)
+      );
+    },
+  };
+
   const runeSpellArr = [
     {
       name: "firstRune",
       runeSpellInfo: runeSpellInfo[0],
-      imgUrl: `https://ddragon.leagueoflegends.com/cdn/img/
-${
-  runeSpellInfo[0]
-    ?.find((a) => a.id === getMyGameInfo(infos).perks.styles[0].style)
-    .slots.map((a) => a.runes)
-    .flat()
-    .find(
-      (a) => a.id === getMyGameInfo(infos).perks.styles[0].selections[0].perk
-    ).icon
-}`,
-      runeSpellName: runeSpellInfo[0]
-        ?.find((a) => a.id === getMyGameInfo(infos).perks.styles[0].style)
-        .slots.map((a) => a.runes)
-        .flat()
-        .find(
-          (a) =>
-            a.id === getMyGameInfo(infos).perks.styles[0].selections[0].perk
-        ).name,
+      imgUrl: `https://ddragon.leagueoflegends.com/cdn/img/${
+        runeSpellInfoFunction.firstRuneInfo(getMyGameInfo(infos))?.icon
+      }`,
+      runeSpellName: runeSpellInfoFunction.firstRuneInfo(getMyGameInfo(infos))
+        ?.name,
     },
     {
       name: "secondRune",
       runeSpellInfo: runeSpellInfo[0],
       imgUrl: `https://ddragon.leagueoflegends.com/cdn/img/${
-        runeSpellInfo[0]?.find(
-          (a) => a.id === getMyGameInfo(infos).perks.styles[1].style
-        ).icon
+        runeSpellInfoFunction.secondRuneInfo(getMyGameInfo(infos))?.icon
       }`,
 
-      runeSpellName: runeSpellInfo[0]?.find(
-        (a) => a.id === getMyGameInfo(infos).perks.styles[1].style
-      ).name,
-      runeSpellDesc: "",
+      runeSpellName: runeSpellInfoFunction.secondRuneInfo(getMyGameInfo(infos))
+        ?.name,
     },
     {
       name: "firstSpell",
       runeSpellInfo: runeSpellInfo[1],
       imgUrl: `https://ddragon.leagueoflegends.com/cdn/12.4.1/img/spell/${
-        runeSpellInfo[1]?.find(
-          (b) => b.key === String(getMyGameInfo(infos).summoner1Id)
-        )?.id
+        runeSpellInfoFunction.firstSpellInfo(getMyGameInfo(infos))?.id
       }.png`,
-      runeSpellName: runeSpellInfo[1]?.find(
-        (b) => b.key === String(getMyGameInfo(infos).summoner1Id)
-      )?.name,
-      runeSpellDesc: runeSpellInfo[1]?.find(
-        (b) => b.key === String(getMyGameInfo(infos).summoner1Id)
-      )?.description,
+      runeSpellName: runeSpellInfoFunction.firstSpellInfo(getMyGameInfo(infos))
+        ?.name,
+      runeSpellDesc: runeSpellInfoFunction.firstSpellInfo(getMyGameInfo(infos))
+        ?.description,
     },
     {
-      name: "SecondSpell",
+      name: "secondSpell",
       runeSpellInfo: runeSpellInfo[1],
       imgUrl: `https://ddragon.leagueoflegends.com/cdn/12.4.1/img/spell/${
-        runeSpellInfo[1]?.find(
-          (b) => b.key === String(getMyGameInfo(infos).summoner2Id)
-        )?.id
+        runeSpellInfoFunction.secondSpellInfo(getMyGameInfo(infos))?.id
       }.png`,
-      runeSpellName: runeSpellInfo[1]?.find(
-        (b) => b.key === String(getMyGameInfo(infos).summoner2Id)
-      )?.name,
-      runeSpellDesc: runeSpellInfo[1]?.find(
-        (b) => b.key === String(getMyGameInfo(infos).summoner2Id)
-      )?.description,
+      runeSpellName: runeSpellInfoFunction.secondSpellInfo(getMyGameInfo(infos))
+        ?.name,
+      runeSpellDesc: runeSpellInfoFunction.secondSpellInfo(getMyGameInfo(infos))
+        ?.description,
     },
   ];
+
   const itemArr = [
     { key: 1, itemNum: getMyGameInfo(infos).item0 },
     { key: 2, itemNum: getMyGameInfo(infos).item1 },
@@ -142,6 +155,15 @@ ${
     { key: 6, itemNum: getMyGameInfo(infos).item5 },
     { key: 7, itemNum: getMyGameInfo(infos).item6 },
   ];
+
+  const runeDescMarkup = () => {
+    return {
+      __html: `${
+        //중복
+        runeSpellInfoFunction.firstRuneInfo(getMyGameInfo(infos))?.longDesc
+      }`,
+    };
+  };
 
   return (
     <div key={infos.metadata.matchId} className={styles.match}>
@@ -202,14 +224,19 @@ ${
                 <RuneSpell
                   key={runeSpellInfo.name}
                   runeSpellInfo={runeSpellInfo}
-                  infos={infos}
-                  getMyGameInfo={getMyGameInfo}
+                  runeDescMarkup={runeDescMarkup}
                 />
               ))}
           </div>
 
           <div className={styles.championName}>
-            <span>{CHAMPIONS[getMyGameInfo(infos).championId]}</span>
+            <span>
+              {
+                championInfo[
+                  formatChampionName(getMyGameInfo(infos).championName)
+                ]?.name
+              }
+            </span>
           </div>
         </div>
         <div className={styles.kdaBox}>
@@ -330,6 +357,9 @@ ${
         userTeamStats={userTeamStats}
         opposingTeamStats={opposingTeamStats}
         isActive={isActive}
+        runeSpellInfo={runeSpellInfo}
+        itemsInfo={itemsInfo}
+        runeSpellInfoFunction={runeSpellInfoFunction}
       />
     </div>
   );
