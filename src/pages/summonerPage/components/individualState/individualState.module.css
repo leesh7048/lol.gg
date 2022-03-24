@@ -1,0 +1,84 @@
+.row {
+  height: 40px;
+}
+.championImgCell {
+  position: relative;
+  width: 35px;
+  padding: 5px;
+}
+.championImgBox {
+  width: 30px;
+}
+.championImg {
+  width: 100%;
+  height: 100%;
+}
+.championLevel {
+  display: inline-block;
+  position: absolute;
+  z-index: 1;
+  bottom: 3px;
+  font-size: 10px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 13px;
+  background-color: rgba(8, 8, 8, 0.808);
+  color: white;
+}
+.spellCell {
+  display: grid;
+  grid-template-columns: repeat(2, 20px);
+  grid-template-rows: repeat(2, 20px);
+  margin-left: 10px;
+  column-gap: 1px;
+  row-gap: 1px;
+}
+.spellImg {
+  width: 100%;
+}
+.runeCell {
+  width: 15px;
+  height: 100%;
+}
+.runeImg {
+  width: 100%;
+  background-color: black;
+  border-radius: 50%;
+}
+.summonerNameCell {
+  font-size: 12px;
+  width: 120px;
+  padding-left: 5px;
+}
+.summonerLink {
+  text-decoration: none;
+  color: black;
+}
+
+.itemBox {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}
+.item {
+  width: 24px;
+  border-radius: 5px;
+  background-color: gray;
+  margin-right: 2px;
+}
+.itemImg {
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+}
+
+.kdaCell,
+.csCell,
+.wardCell,
+.damageCell,
+.goldCell {
+  text-align: center;
+  font-size: 12px;
+}
