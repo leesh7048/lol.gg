@@ -64,4 +64,10 @@ export default class LolApi {
 
     return response.data.data;
   }
+  async championInfo() {
+    const response = await axios.get(
+      "https://ddragon.leagueoflegends.com/cdn/10.6.1/data/ko_KR/champion.json"
+    );
+    return response.data.data;
+  }
 }
