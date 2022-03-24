@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./runeSpell.module.css";
 
-const RuneSpell = ({ runeSpellInfo, infos, getMyGameInfo }) => {
+const RuneSpell = ({ runeSpellInfo, runeDescMarkup }) => {
   const [tooltipIsActive, setTooltipIsActive] = useState(false);
 
   const onMouseOver = () => {
@@ -9,23 +9,6 @@ const RuneSpell = ({ runeSpellInfo, infos, getMyGameInfo }) => {
   };
   const onMouseLeave = () => {
     setTooltipIsActive(false);
-  };
-  const markup = () => {
-    return {
-      __html: `${
-        runeSpellInfo.runeSpellInfo
-          ?.find(
-            (info) => info.id === getMyGameInfo(infos).perks.styles[0].style
-          )
-          ?.slots.map((a) => a.runes)
-          .flat()
-          .find(
-            (info) =>
-              info.id ===
-              getMyGameInfo(infos).perks.styles[0].selections[0].perk
-          ).longDesc
-      }`,
-    };
   };
 
   return (
@@ -44,7 +27,7 @@ const RuneSpell = ({ runeSpellInfo, infos, getMyGameInfo }) => {
         </span>
 
         {runeSpellInfo.name === "firstRune" ? (
-          <span dangerouslySetInnerHTML={markup()}></span>
+          <span dangerouslySetInnerHTML={runeDescMarkup()}></span>
         ) : (
           <span>{runeSpellInfo?.runeSpellDesc}</span>
         )}
