@@ -3,7 +3,13 @@ import styles from "./matches.module.css";
 
 import Match from "../match/match";
 
-const Matches = ({ matchInfo, summonerProfile, addMatchCount, lolApi }) => {
+const Matches = ({
+  matchInfo,
+  summonerProfile,
+  addMatchCount,
+  lolApi,
+  loading,
+}) => {
   return (
     <div className={styles.matches}>
       {matchInfo.map((infos) => (
@@ -16,7 +22,7 @@ const Matches = ({ matchInfo, summonerProfile, addMatchCount, lolApi }) => {
       ))}
       <div>
         <div className={styles.addMatchBtn} onClick={addMatchCount}>
-          더보기
+          {!loading ? "더보기" : <div className={styles.loading}></div>}
         </div>
       </div>
     </div>
