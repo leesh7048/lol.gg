@@ -158,4 +158,6 @@
   grid-template-columns: repeat(2, 20px);
   grid-template-rows: repeat(2, 20px);
   margin-left: 15px;
+  column-gap: 1px;
+  row-gap: 1px;
 }
