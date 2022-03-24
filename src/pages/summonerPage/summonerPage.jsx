@@ -16,6 +16,7 @@ const SummonerPage = ({ lolApi }) => {
   const [matchInfo, setMatchInfo] = useState([]);
   const [matchPage, setMatchPage] = useState(0);
   const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -67,6 +68,7 @@ const SummonerPage = ({ lolApi }) => {
 
     const getMatchInfo = async () => {
       try {
+        setLoading(true);
         const leagueIds = await lolApi.matches(
           summonerProfile.puuid,
           matchPage
@@ -75,6 +77,7 @@ const SummonerPage = ({ lolApi }) => {
           leagueIds.map((id) => lolApi.matchInfo(id))
         );
         setMatchInfo([...matchInfo, ...newMatchInfo]);
+        setLoading(false);
       } catch (error) {
         setError(error);
       }
@@ -100,6 +103,7 @@ const SummonerPage = ({ lolApi }) => {
               summonerProfile={summonerProfile}
               addMatchCount={addMatchCount}
               lolApi={lolApi}
+              loading={loading}
             />
           </div>
         </>
