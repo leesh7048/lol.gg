@@ -1,3 +1,6 @@
+.runeSpell {
+  list-style: none;
+}
 .runeSpell:nth-child(3) {
   grid-row-start: 1;
   grid-column-start: 2;
