@@ -8,13 +8,15 @@ const Items = ({ itemNum, itemsInfo }) => {
     if (!itemsInfo[itemNum]?.name) return;
     setTooltipIsActive(true);
   };
+
   const onMouseLeave = () => {
     setTooltipIsActive(false);
   };
 
-  const markup = (description) => {
+  const itemDescMarkup = (description) => {
     return { __html: description };
   };
+
   return (
     <div
       className={styles.item}
@@ -40,7 +42,9 @@ const Items = ({ itemNum, itemsInfo }) => {
         </span>
         <span
           className={styles.itemDescription}
-          dangerouslySetInnerHTML={markup(itemsInfo[itemNum]?.description)}
+          dangerouslySetInnerHTML={itemDescMarkup(
+            itemsInfo[itemNum]?.description
+          )}
         ></span>
         <span className={styles.itemGold}>
           gold:{itemsInfo[itemNum]?.gold.total}
