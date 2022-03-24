@@ -3,6 +3,7 @@
   height: 30px;
   background-color: #807d7d71;
   border-radius: 10px;
+  list-style: none;
 }
 
 .item:nth-child(7) {
