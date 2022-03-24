@@ -1,9 +1,15 @@
 import React from "react";
 import styles from "./matchTeamStats.module.css";
-import { RUNES } from "../match/runes";
-import { SPELL } from "../match/spell";
+import IndividualState from "../individualState/individualState";
 
-const MatchTeamStats = ({ infos, isActive }) => {
+const MatchTeamStats = ({
+  infos,
+  isActive,
+  runeSpellInfo,
+
+  itemsInfo,
+  runeSpellInfoFunction,
+}) => {
   return (
     <>
       {!isActive ? (
@@ -13,7 +19,7 @@ const MatchTeamStats = ({ infos, isActive }) => {
           <thead className={styles.teamHeader}>
             <tr className={styles.row}>
               <th
-                colSpan={4}
+                colSpan={3}
                 className={
                   infos[0].win ? styles.winHeaderCell : styles.loseHeaderCell
                 }
@@ -34,160 +40,13 @@ const MatchTeamStats = ({ infos, isActive }) => {
             className={infos[0].win ? styles.winContents : styles.loseContents}
           >
             {infos.map((summoner) => (
-              <tr className={styles.row}>
-                <td className={styles.championImgCell}>
-                  <div className={styles.championImgBox}>
-                    <img
-                      className={styles.championImg}
-                      src={`https://ddragon.leagueoflegends.com/cdn/12.2.1/img/champion/${summoner.championName}.png`}
-                      alt=""
-                    />
-                  </div>
-                  <div className={styles.championLevel}>
-                    {summoner.champLevel}
-                  </div>
-                </td>
-                <td className={styles.spellCell}>
-                  <img
-                    className={styles.spellImg}
-                    src={`https://ddragon.leagueoflegends.com/cdn/12.2.1/img/spell/${
-                      SPELL[summoner.summoner1Id]
-                    }.png`}
-                    alt=""
-                  />
-                  <img
-                    className={styles.spellImg}
-                    src={`https://ddragon.leagueoflegends.com/cdn/12.2.1/img/spell/${
-                      SPELL[summoner.summoner2Id]
-                    }.png`}
-                    alt=""
-                  />
-                </td>
-                <td className={styles.runeCell}>
-                  <img
-                    className={styles.runeImg}
-                    src={`https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/${
-                      RUNES[summoner.perks.styles[0].selections[0].perk]
-                    }.png`}
-                    alt=""
-                  />
-                  <img
-                    className={styles.runeImg}
-                    src={`https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/${
-                      RUNES[summoner.perks.styles[1].style]
-                    }.png`}
-                    alt=""
-                  />
-                </td>
-                <td className={styles.summonerNameCell}>
-                  <a
-                    className={styles.summonerLink}
-                    href={`http://localhost:3000/summoner?userName=${summoner.summonerName}`}
-                  >
-                    {summoner.summonerName}
-                  </a>
-                </td>
-
-                <td className={styles.itemCell}>
-                  <div className={styles.itemBox}>
-                    <div className={styles.item}>
-                      {summoner.item0 !== 0 ? (
-                        <img
-                          className={styles.itemImg}
-                          src={`https://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/${summoner.item0}.png`}
-                          alt=""
-                        />
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                    <div className={styles.item}>
-                      {summoner.item1 !== 0 ? (
-                        <img
-                          className={styles.itemImg}
-                          src={`https://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/${summoner.item1}.png`}
-                          alt=""
-                        />
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                    <div className={styles.item}>
-                      {summoner.item2 !== 0 ? (
-                        <img
-                          className={styles.itemImg}
-                          src={`https://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/${summoner.item2}.png`}
-                          alt=""
-                        />
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                    <div className={styles.item}>
-                      {summoner.item3 !== 0 ? (
-                        <img
-                          className={styles.itemImg}
-                          src={`https://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/${summoner.item3}.png`}
-                          alt=""
-                        />
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                    <div className={styles.item}>
-                      {summoner.item4 !== 0 ? (
-                        <img
-                          className={styles.itemImg}
-                          src={`https://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/${summoner.item4}.png`}
-                          alt=""
-                        />
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                    <div className={styles.item}>
-                      {summoner.item5 !== 0 ? (
-                        <img
-                          className={styles.itemImg}
-                          src={`https://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/${summoner.item5}.png`}
-                          alt=""
-                        />
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                    <div className={styles.item}>
-                      {summoner.item6 !== 0 ? (
-                        <img
-                          className={styles.itemImg}
-                          src={`https://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/${summoner.item6}.png`}
-                          alt=""
-                        />
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  </div>
-                </td>
-                <td className={styles.kdaCell}>
-                  <span>{summoner.kills}/</span>
-                  <span>{summoner.deaths}/</span>
-                  <span>{summoner.assists}</span>
-                </td>
-                <td className={styles.csCell}>
-                  <span>{summoner.totalMinionsKilled}</span>
-                </td>
-                <td className={styles.wardCell}>
-                  <div>{summoner.detectorWardsPlaced}</div>
-                  <div>
-                    {summoner.wardsPlaced}/{summoner.wardsKilled}
-                  </div>
-                </td>
-                <td className={styles.damageCell}>
-                  {summoner.totalDamageDealtToChampions}
-                </td>
-                <td className={styles.goldCell}>{summoner.goldEarned}</td>
-              </tr>
+              <IndividualState
+                key={summoner.puuid}
+                summoner={summoner}
+                runeSpellInfo={runeSpellInfo}
+                itemsInfo={itemsInfo}
+                runeSpellInfoFunction={runeSpellInfoFunction}
+              />
             ))}
           </tbody>
         </table>
