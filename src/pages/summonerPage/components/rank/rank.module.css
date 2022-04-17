@@ -10,9 +10,12 @@
   margin-bottom: 10px;
   font-size: 14px;
 }
-
-.soloTierImg {
+.soloRankImg {
   height: 146px;
+}
+.soloTierImg {
+  height: 100%;
+  width: 100%;
 }
 .soloRankInfo {
   display: flex;
@@ -25,11 +28,69 @@
   background-color: rgb(202, 202, 199);
   font-size: 14px;
 }
-.teamTierImg {
+.teamRankImg {
   height: 150px;
+}
+.teamTierImg {
+  height: 100%;
+  width: 100%;
 }
 .teamRankInfo {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+.miniSeries {
+  display: flex;
+}
+.win {
+  border: 1px solid #147ea5;
+  border-radius: 50%;
+  background-color: #2596be;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  margin-right: 2px;
+  font-size: 12px;
+  color: white;
+  font-weight: 500;
+}
+.lose {
+  border: 1px solid #ca6068;
+  border-radius: 50%;
+  background-color: #e67b83;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  margin-right: 2px;
+  font-size: 12px;
+  color: white;
+  font-weight: 500;
+}
+.none {
+  border: 1px solid rgb(95, 94, 94);
+  border-radius: 50%;
+
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  margin-right: 2px;
+  font-size: 12px;
+}
+.loading {
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  border: 2px solid gray;
+  border-top: 3px solid black;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
