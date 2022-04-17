@@ -27,8 +27,8 @@ export default class LolApi {
       `lol/match/v5/matches/by-puuid/${puuid}/ids`,
       {
         params: {
-          start: matchPage * 3,
-          count: 3,
+          start: matchPage * 10,
+          count: 10,
         },
       }
     );
