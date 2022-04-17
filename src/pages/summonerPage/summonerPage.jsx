@@ -16,7 +16,8 @@ const SummonerPage = ({ lolApi }) => {
   const [matchInfo, setMatchInfo] = useState([]);
   const [matchPage, setMatchPage] = useState(0);
   const [error, setError] = useState();
-  const [loading, setLoading] = useState(false);
+  const [matchLoading, setMatchLoading] = useState(false);
+  const [rankLoading, setRankLoading] = useState(true);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -42,12 +43,14 @@ const SummonerPage = ({ lolApi }) => {
     rankInfo.find(({ queueType }) => queueType === targetQueueType);
 
   const getRankInfo = async (id) => {
+    setRankLoading(true);
     const rankInfo = await lolApi.rank(id);
-
     const soloRank = getRankInfoByQueueType(rankInfo, "RANKED_SOLO_5x5");
     const teamRank = getRankInfoByQueueType(rankInfo, "RANKED_FLEX_SR");
+
     setSoloRank(soloRank);
     setTeamRank(teamRank);
+    setRankLoading(false);
   };
 
   const addMatchCount = () => {
@@ -68,7 +71,7 @@ const SummonerPage = ({ lolApi }) => {
 
     const getMatchInfo = async () => {
       try {
-        setLoading(true);
+        setMatchLoading(true);
         const leagueIds = await lolApi.matches(
           summonerProfile.puuid,
           matchPage
@@ -76,8 +79,9 @@ const SummonerPage = ({ lolApi }) => {
         const newMatchInfo = await Promise.all(
           leagueIds.map((id) => lolApi.matchInfo(id))
         );
+
         setMatchInfo([...matchInfo, ...newMatchInfo]);
-        setLoading(false);
+        setMatchLoading(false);
       } catch (error) {
         setError(error);
       }
@@ -90,20 +94,26 @@ const SummonerPage = ({ lolApi }) => {
   return (
     <div className={styles.container}>
       {error ? (
-        <div>등록되지 않은 소환사입니다. 오타를 확인 후 다시 검색해주세요.</div>
+        <div className={styles.error}>
+          등록되지 않은 소환사입니다. 오타를 확인 후 다시 검색해주세요.
+        </div>
       ) : (
         <>
           <SearchBar />
           <Profile summonerProfile={summonerProfile} />
 
           <div className={styles.contents}>
-            <Rank soloRank={soloRank} teamRank={teamRank} />
+            <Rank
+              soloRank={soloRank}
+              teamRank={teamRank}
+              rankLoading={rankLoading}
+            />
             <Matches
               matchInfo={matchInfo}
               summonerProfile={summonerProfile}
               addMatchCount={addMatchCount}
               lolApi={lolApi}
-              loading={loading}
+              matchLoading={matchLoading}
             />
           </div>
         </>
