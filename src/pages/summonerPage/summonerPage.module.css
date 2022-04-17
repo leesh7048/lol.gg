@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   height: 100%;
   width: 100%;
   background-color: rgb(250, 250, 240);
@@ -14,4 +15,10 @@
   border-radius: 10px;
   padding: 10px;
   background-color: beige;
+}
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
 }
