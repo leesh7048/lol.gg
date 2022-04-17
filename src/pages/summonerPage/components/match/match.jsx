@@ -78,7 +78,7 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
     firstRuneInfo: function (myGameInfo) {
       return runeSpellInfo[0]
         ?.find((runeInfos) => runeInfos.id === myGameInfo.perks.styles[0].style)
-        .slots.map((slot) => slot.runes)
+        ?.slots.map((slot) => slot.runes)
         .flat()
         .find(
           (runeInfo) =>
@@ -159,7 +159,6 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
   const runeDescMarkup = () => {
     return {
       __html: `${
-        //중복
         runeSpellInfoFunction.firstRuneInfo(getMyGameInfo(infos))?.longDesc
       }`,
     };
@@ -327,6 +326,7 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
                     src={`https://ddragon.leagueoflegends.com/cdn/12.4.1/img/champion/${formatChampionName(
                       redTeam.championName
                     )}.png`}
+                    loading="lazy"
                     alt=""
                   />
                 </div>
