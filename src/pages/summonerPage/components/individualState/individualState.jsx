@@ -59,7 +59,6 @@ const IndividualState = ({
 
   const runeDescMarkup = () => {
     return {
-      //중복 props로 내려서 사용하는게 좋은가?
       __html: `${runeSpellInfoFunction.firstRuneInfo(summoner)?.longDesc}`,
     };
   };
@@ -73,7 +72,6 @@ const IndividualState = ({
     { key: 6, itemNum: summoner.item5 },
     { key: 7, itemNum: summoner.item6 },
   ];
-  console.log(summoner);
 
   return (
     <tr className={styles.row}>
