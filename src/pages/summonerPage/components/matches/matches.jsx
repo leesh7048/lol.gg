@@ -8,7 +8,7 @@ const Matches = ({
   summonerProfile,
   addMatchCount,
   lolApi,
-  loading,
+  matchLoading,
 }) => {
   return (
     <div className={styles.matches}>
@@ -22,7 +22,7 @@ const Matches = ({
       ))}
       <div>
         <div className={styles.addMatchBtn} onClick={addMatchCount}>
-          {!loading ? "더보기" : <div className={styles.loading}></div>}
+          {!matchLoading ? "더보기" : <div className={styles.loading}></div>}
         </div>
       </div>
     </div>
