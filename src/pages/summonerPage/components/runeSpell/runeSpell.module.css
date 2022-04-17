@@ -1,5 +1,6 @@
 .runeSpell {
   list-style: none;
+  position: relative;
 }
 .runeSpell:nth-child(3) {
   grid-row-start: 1;
@@ -13,21 +14,55 @@
   background-color: black;
 }
 
-.openTooltip {
+.bottomOpenTooltip {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 300px;
+  width: 300px;
+  left: -135px;
+  top: 30px;
   padding: 10px;
-
   position: absolute;
   background-color: black;
   font-size: 12px;
   color: white;
-
   z-index: 1;
-  /* transform: translateX(-100px); */
 }
+.bottomOpenTooltip::before {
+  content: " ";
+  position: absolute;
+  bottom: 100%;
+  left: 45%;
+
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent black;
+}
+.topOpenTooltip {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  bottom: 30px;
+  width: 300px;
+  left: -140px;
+  position: absolute;
+  background-color: black;
+  font-size: 12px;
+  color: white;
+  padding: 10px;
+  z-index: 1;
+}
+.topOpenTooltip::after {
+  content: " ";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: black transparent transparent;
+}
+
 .closeTooltip {
   display: none;
 }
