@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useLayoutEffect } from "react";
 import styles from "./runeSpell.module.css";
 
 const RuneSpell = ({ runeSpellInfo, runeDescMarkup }) => {
@@ -16,7 +16,7 @@ const RuneSpell = ({ runeSpellInfo, runeDescMarkup }) => {
     setTooltipIsActive(false);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (tooltipIsActive) {
       window.innerHeight <
       tooltipRef.current.getBoundingClientRect().height +
