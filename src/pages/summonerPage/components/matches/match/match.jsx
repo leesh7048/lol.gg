@@ -7,6 +7,7 @@ import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import dayjs from "dayjs";
 import RuneSpell from "../../runeSpell/runeSpell.jsx";
 import Items from "../../items/items";
+import { Link } from "react-router-dom";
 
 const Match = ({ infos, summonerProfile, lolApi }) => {
   const [isActive, setIsActive] = useState(false);
@@ -307,12 +308,11 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
                   />
                 </div>
                 <div className={styles.summonerChampionName}>
-                  <a
-                    className={styles.summonerLink}
-                    href={`http://localhost:3000/summoner?userName=${blueTeam.summonerName}`}
-                  >
-                    {blueTeam.summonerName}
-                  </a>
+                  <Link to={`/summoner?userName=${blueTeam.summonerName}`}>
+                    <span className={styles.summonerLink}>
+                      {blueTeam.summonerName}
+                    </span>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -331,12 +331,11 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
                   />
                 </div>
                 <div className={styles.summonerChampionName}>
-                  <a
-                    className={styles.summonerLink}
-                    href={`http://localhost:3000/summoner?userName=${redTeam.summonerName}`}
-                  >
-                    {redTeam.summonerName}
-                  </a>
+                  <Link to={`/summoner?userName=${redTeam.summonerName}`}>
+                    <span className={styles.summonerLink}>
+                      {redTeam.summonerName}
+                    </span>
+                  </Link>
                 </div>
               </div>
             ))}
