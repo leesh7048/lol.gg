@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./matchTeamStats.module.css";
-import IndividualState from "../individualState/individualState";
+import IndividualState from "./individualState/individualState";
 
 const MatchTeamStats = ({
   infos,

@@ -1,5 +1,5 @@
 import React from "react";
-import MatchTeamStats from "../matchTeamStats/matchTeamStats";
+import MatchTeamStats from "./matchTeamStats/matchTeamStats";
 import styles from "./matchStats.module.css";
 
 const MatchStats = ({

@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./matches.module.css";
-
-import Match from "../match/match";
+import Match from "./match/match";
 
 const Matches = ({
   matchInfo,

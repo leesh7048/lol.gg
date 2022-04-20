@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import MatchStats from "../matchStats/matchStats";
+import MatchStats from "./matchStats/matchStats";
 import styles from "./match.module.css";
 
 import { QUEUE_TYPE } from "./queueType";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import dayjs from "dayjs";
-import RuneSpell from "../runeSpell/runeSpell.jsx";
-import Items from "../items/items";
+import RuneSpell from "../../runeSpell/runeSpell.jsx";
+import Items from "../../items/items";
 
 const Match = ({ infos, summonerProfile, lolApi }) => {
   const [isActive, setIsActive] = useState(false);

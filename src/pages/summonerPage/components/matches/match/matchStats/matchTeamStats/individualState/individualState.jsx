@@ -1,6 +1,6 @@
 import React from "react";
-import Items from "../items/items";
-import RuneSpell from "../runeSpell/runeSpell";
+import Items from "../../../../../items/items";
+import RuneSpell from "../../../../../runeSpell/runeSpell";
 import styles from "./individualState.module.css";
 
 const IndividualState = ({
