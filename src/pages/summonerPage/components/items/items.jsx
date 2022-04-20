@@ -30,7 +30,6 @@ const Items = ({ itemNum, itemsInfo }) => {
     }
   }, [tooltipIsActive]);
 
-  console.log(tooltipTop);
   return (
     <div
       className={styles.item}
