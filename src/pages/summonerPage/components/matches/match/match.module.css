@@ -155,6 +155,14 @@
   font-size: 22px;
   background-color: rgb(238, 125, 125);
 }
+.reStatsBtn {
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-size: 22px;
+  background-color: rgb(133, 130, 130);
+}
 .runeSpell {
   display: grid;
   grid-template-columns: repeat(2, 20px);

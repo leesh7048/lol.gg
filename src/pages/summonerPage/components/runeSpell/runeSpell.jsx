@@ -33,7 +33,11 @@ const RuneSpell = ({ runeSpellInfo, runeDescMarkup }) => {
       onMouseLeave={onMouseLeave}
       ref={runeSpellRef}
     >
-      <img className={styles.runeSpellImg} src={runeSpellInfo.imgUrl} alt="" />
+      <img
+        className={styles.runeSpellImg}
+        src={runeSpellInfo.imgUrl}
+        alt="runeSpell"
+      />
 
       <div
         className={

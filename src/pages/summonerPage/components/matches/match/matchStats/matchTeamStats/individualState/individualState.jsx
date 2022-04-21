@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Items from "../../../../../items/items";
 import RuneSpell from "../../../../../runeSpell/runeSpell";
 import styles from "./individualState.module.css";
@@ -82,7 +83,7 @@ const IndividualState = ({
             src={`https://ddragon.leagueoflegends.com/cdn/12.2.1/img/champion/${formatChampionName(
               summoner.championName
             )}.png`}
-            alt=""
+            alt={summoner.championName}
           />
         </div>
         <div className={styles.championLevel}>{summoner.champLevel}</div>
@@ -97,12 +98,9 @@ const IndividualState = ({
         ))}
       </td>
       <td className={styles.summonerNameCell}>
-        <a
-          className={styles.summonerLink}
-          href={`http://localhost:3000/summoner?userName=${summoner.summonerName}`}
-        >
-          {summoner.summonerName}
-        </a>
+        <Link to={`/summoner?userName=${summoner.summonerName}`}>
+          <span className={styles.summonerLink}> {summoner.summonerName}</span>
+        </Link>
       </td>
 
       <td className={styles.itemCell}>

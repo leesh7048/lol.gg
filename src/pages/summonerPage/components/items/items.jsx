@@ -41,7 +41,7 @@ const Items = ({ itemNum, itemsInfo }) => {
         <img
           className={styles.itemImg}
           src={`https://ddragon.leagueoflegends.com/cdn/12.4.1/img/item/${itemNum}.png`}
-          alt=""
+          alt="item"
         />
       ) : (
         ""

@@ -215,7 +215,7 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
               src={`https://ddragon.leagueoflegends.com/cdn/12.4.1/img/champion/${formatChampionName(
                 getMyGameInfo(infos).championName
               )}.png`}
-              alt=""
+              alt={formatChampionName(getMyGameInfo(infos).championName)}
             />
           </div>
           <div className={styles.runeSpell}>
@@ -304,7 +304,7 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
                     src={`https://ddragon.leagueoflegends.com/cdn/12.4.1/img/champion/${formatChampionName(
                       blueTeam.championName
                     )}.png`}
-                    alt=""
+                    alt={blueTeam.championName}
                   />
                 </div>
                 <div className={styles.summonerChampionName}>
@@ -326,8 +326,7 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
                     src={`https://ddragon.leagueoflegends.com/cdn/12.4.1/img/champion/${formatChampionName(
                       redTeam.championName
                     )}.png`}
-                    loading="lazy"
-                    alt=""
+                    alt={redTeam.championName}
                   />
                 </div>
                 <div className={styles.summonerChampionName}>
@@ -343,7 +342,11 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
         </div>
         <div
           className={
-            getMyGameInfo(infos).win ? styles.winStatsBtn : styles.loseStatsBtn
+            getMyGameInfo(infos).win
+              ? styles.winStatsBtn
+              : Math.floor(infos.info.gameDuration / 60) <= 5
+              ? styles.reStatsBtn
+              : styles.loseStatsBtn
           }
           onClick={handleStatsBtn}
         >

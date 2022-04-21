@@ -52,8 +52,10 @@
   width: 120px;
   padding-left: 5px;
 }
-.summonerLink {
+.summonerNameCell a {
   text-decoration: none;
+}
+.summonerLink {
   color: black;
 }
 
