@@ -165,7 +165,6 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
     };
   };
 
-  console.log(infos);
   return (
     <div key={infos.metadata.matchId} className={styles.match}>
       <div
