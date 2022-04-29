@@ -27,12 +27,6 @@ export default class LolApi {
       `lol/match/v5/matches/by-puuid/${puuid}/ids`,
       {
         params: {
-          queue: 420,
-          queue: 430,
-          queue: 440,
-          queue: 450,
-          queue: 1400,
-          queue: 900,
           start: matchPage * 10,
           count: 10,
         },
