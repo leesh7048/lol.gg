@@ -7,7 +7,6 @@ const MatchStats = ({
   opposingTeamStats,
   isActive,
   runeSpellInfo,
-
   itemsInfo,
   runeSpellInfoFunction,
 }) => {
