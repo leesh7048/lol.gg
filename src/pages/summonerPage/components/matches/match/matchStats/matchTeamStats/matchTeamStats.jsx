@@ -15,7 +15,7 @@ const MatchTeamStats = ({
       {!isActive ? (
         <></>
       ) : (
-        <table table className={styles.openTeam}>
+        <table className={styles.openTeam}>
           <thead className={styles.teamHeader}>
             <tr className={styles.row}>
               <th
