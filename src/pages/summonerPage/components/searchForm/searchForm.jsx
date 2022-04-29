@@ -27,7 +27,7 @@ const SearchForm = () => {
         type="text"
         placeholder="소환사명을 입력하세요"
         autoComplete="off"
-        required="true"
+        required
         ref={inputRef}
         onKeyPress={onKeyPress}
       />
