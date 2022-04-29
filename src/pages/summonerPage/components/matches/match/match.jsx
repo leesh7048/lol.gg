@@ -26,28 +26,28 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
     return championName;
   };
 
-  const getChampionInfo = async () => {
-    const champion = await lolApi.championInfo();
-    setChampionInfo(champion);
-  };
-
-  const getRuneSpellInfo = async () => {
-    const rune = lolApi.runeInfo();
-    const spell = lolApi.spellInfo();
-    const [_rune, _spell] = await Promise.all([rune, spell]);
-
-    setRuneSpellInfo([_rune, Object.values(_spell)]);
-  };
-  const getItemsInfo = async () => {
-    const items = await lolApi.itemsInfo();
-    setItemsInfo(items);
-  };
-
   useEffect(() => {
+    const getChampionInfo = async () => {
+      const champion = await lolApi.championInfo();
+      setChampionInfo(champion);
+    };
+
+    const getRuneSpellInfo = async () => {
+      const rune = lolApi.runeInfo();
+      const spell = lolApi.spellInfo();
+      const [_rune, _spell] = await Promise.all([rune, spell]);
+
+      setRuneSpellInfo([_rune, Object.values(_spell)]);
+    };
+    const getItemsInfo = async () => {
+      const items = await lolApi.itemsInfo();
+      setItemsInfo(items);
+    };
+
     getRuneSpellInfo();
     getItemsInfo();
     getChampionInfo();
-  }, []);
+  }, [lolApi]);
 
   const getTeamStats = () => {
     if (
@@ -170,7 +170,9 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
       <div
         className={
           getMyGameInfo(infos).win
-            ? styles.matchWin
+            ? Math.floor(infos.info.gameDuration / 60) <= 5
+              ? styles.reMatch
+              : styles.matchWin
             : Math.floor(infos.info.gameDuration / 60) <= 5
             ? styles.reMatch
             : styles.matchLose
@@ -187,14 +189,18 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
           <div
             className={
               getMyGameInfo(infos).win
-                ? styles.gameResultWin
+                ? Math.floor(infos.info.gameDuration / 60) <= 5
+                  ? styles.gameRestart
+                  : styles.gameResultWin
                 : Math.floor(infos.info.gameDuration / 60) <= 5
                 ? styles.gameRestart
                 : styles.gameResultLose
             }
           >
             {getMyGameInfo(infos).win
-              ? "승리"
+              ? Math.floor(infos.info.gameDuration / 60) <= 5
+                ? "다시하기"
+                : "승리"
               : Math.floor(infos.info.gameDuration / 60) <= 5
               ? "다시하기"
               : "패배"}
@@ -340,18 +346,22 @@ const Match = ({ infos, summonerProfile, lolApi }) => {
             ))}
           </div>
         </div>
-        <div
-          className={
-            getMyGameInfo(infos).win
-              ? styles.winStatsBtn
-              : Math.floor(infos.info.gameDuration / 60) <= 5
-              ? styles.reStatsBtn
-              : styles.loseStatsBtn
-          }
-          onClick={handleStatsBtn}
-        >
-          {!isActive ? <AiFillCaretUp /> : <AiFillCaretDown />}
-        </div>
+        {infos.info.queueId !== 0 && (
+          <div
+            className={
+              getMyGameInfo(infos).win
+                ? Math.floor(infos.info.gameDuration / 60) <= 5
+                  ? styles.reStatsBtn
+                  : styles.winStatsBtn
+                : Math.floor(infos.info.gameDuration / 60) <= 5
+                ? styles.reStatsBtn
+                : styles.loseStatsBtn
+            }
+            onClick={handleStatsBtn}
+          >
+            {!isActive ? <AiFillCaretUp /> : <AiFillCaretDown />}
+          </div>
+        )}
       </div>
       <MatchStats
         infos={infos}
