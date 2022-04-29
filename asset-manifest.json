@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/leesh7048/lol.gg.git/static/css/main.986d1856.chunk.css",
+    "main.js": "/leesh7048/lol.gg.git/static/js/main.8489a636.chunk.js",
+    "main.js.map": "/leesh7048/lol.gg.git/static/js/main.8489a636.chunk.js.map",
+    "runtime-main.js": "/leesh7048/lol.gg.git/static/js/runtime-main.4c92a353.js",
+    "runtime-main.js.map": "/leesh7048/lol.gg.git/static/js/runtime-main.4c92a353.js.map",
+    "static/js/2.c4354a78.chunk.js": "/leesh7048/lol.gg.git/static/js/2.c4354a78.chunk.js",
+    "static/js/2.c4354a78.chunk.js.map": "/leesh7048/lol.gg.git/static/js/2.c4354a78.chunk.js.map",
+    "index.html": "/leesh7048/lol.gg.git/index.html",
+    "static/css/main.986d1856.chunk.css.map": "/leesh7048/lol.gg.git/static/css/main.986d1856.chunk.css.map",
+    "static/js/2.c4354a78.chunk.js.LICENSE.txt": "/leesh7048/lol.gg.git/static/js/2.c4354a78.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4c92a353.js",
+    "static/js/2.c4354a78.chunk.js",
+    "static/css/main.986d1856.chunk.css",
+    "static/js/main.8489a636.chunk.js"
+  ]
+}
