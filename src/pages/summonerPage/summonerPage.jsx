@@ -28,30 +28,8 @@ const SummonerPage = ({ lolApi }) => {
     else return userName;
   };
 
-  const getSummonerProfile = async () => {
-    try {
-      const summoner = await lolApi.summoner(
-        getManipulatedUserName(decodeURI(userName))
-      );
-      setSummonerProfile(summoner);
-    } catch (error) {
-      setError(error);
-    }
-  };
-
   const getRankInfoByQueueType = (rankInfo, targetQueueType) =>
     rankInfo.find(({ queueType }) => queueType === targetQueueType);
-
-  const getRankInfo = async (id) => {
-    setRankLoading(true);
-    const rankInfo = await lolApi.rank(id);
-    const soloRank = getRankInfoByQueueType(rankInfo, "RANKED_SOLO_5x5");
-    const teamRank = getRankInfoByQueueType(rankInfo, "RANKED_FLEX_SR");
-
-    setSoloRank(soloRank);
-    setTeamRank(teamRank);
-    setRankLoading(false);
-  };
 
   const addMatchCount = () => {
     setMatchPage(matchPage + 1);
@@ -59,12 +37,23 @@ const SummonerPage = ({ lolApi }) => {
 
   useEffect(() => {
     if (userName) {
+      const getSummonerProfile = async () => {
+        try {
+          const summoner = await lolApi.summoner(
+            getManipulatedUserName(decodeURI(userName))
+          );
+          setSummonerProfile(summoner);
+        } catch (error) {
+          setError(error);
+          console.log(error);
+        }
+      };
       setMatchInfo([]);
       getSummonerProfile();
     } else {
       navigate("/", { replace: true });
     }
-  }, [userName]);
+  }, [userName, navigate, lolApi]);
 
   useEffect(() => {
     if (!summonerProfile.puuid || !summonerProfile.id) return;
@@ -76,20 +65,32 @@ const SummonerPage = ({ lolApi }) => {
           summonerProfile.puuid,
           matchPage
         );
+
         const newMatchInfo = await Promise.all(
           leagueIds.map((id) => lolApi.matchInfo(id))
         );
 
-        setMatchInfo([...matchInfo, ...newMatchInfo]);
+        setMatchInfo((prevMatchInfo) => [...prevMatchInfo, ...newMatchInfo]);
         setMatchLoading(false);
       } catch (error) {
         setError(error);
       }
     };
 
+    const getRankInfo = async (id) => {
+      setRankLoading(true);
+      const rankInfo = await lolApi.rank(id);
+      const soloRank = getRankInfoByQueueType(rankInfo, "RANKED_SOLO_5x5");
+      const teamRank = getRankInfoByQueueType(rankInfo, "RANKED_FLEX_SR");
+
+      setSoloRank(soloRank);
+      setTeamRank(teamRank);
+      setRankLoading(false);
+    };
+
     getRankInfo(summonerProfile.id);
     getMatchInfo();
-  }, [summonerProfile, matchPage]);
+  }, [summonerProfile, matchPage, lolApi]);
 
   return (
     <div className={styles.container}>
