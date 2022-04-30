@@ -35,8 +35,6 @@ const SummonerPage = ({ lolApi }) => {
     setMatchPage(matchPage + 1);
   };
 
-  console.log(userName);
-
   useEffect(() => {
     if (userName) {
       setError(false);
@@ -48,7 +46,6 @@ const SummonerPage = ({ lolApi }) => {
           setSummonerProfile(summoner);
         } catch (error) {
           setError(true);
-          console.log(error);
         }
       };
       setMatchInfo([]);
