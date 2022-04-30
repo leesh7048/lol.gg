@@ -15,7 +15,7 @@ const SummonerPage = ({ lolApi }) => {
   const [teamRank, setTeamRank] = useState({});
   const [matchInfo, setMatchInfo] = useState([]);
   const [matchPage, setMatchPage] = useState(0);
-  const [error, setError] = useState();
+  const [error, setError] = useState(false);
   const [matchLoading, setMatchLoading] = useState(false);
   const [rankLoading, setRankLoading] = useState(true);
 
@@ -35,8 +35,11 @@ const SummonerPage = ({ lolApi }) => {
     setMatchPage(matchPage + 1);
   };
 
+  console.log(userName);
+
   useEffect(() => {
     if (userName) {
+      setError(false);
       const getSummonerProfile = async () => {
         try {
           const summoner = await lolApi.summoner(
@@ -44,7 +47,7 @@ const SummonerPage = ({ lolApi }) => {
           );
           setSummonerProfile(summoner);
         } catch (error) {
-          setError(error);
+          setError(true);
           console.log(error);
         }
       };
@@ -57,10 +60,12 @@ const SummonerPage = ({ lolApi }) => {
 
   useEffect(() => {
     if (!summonerProfile.puuid || !summonerProfile.id) return;
+    setError(false);
 
     const getMatchInfo = async () => {
       try {
         setMatchLoading(true);
+
         const leagueIds = await lolApi.matches(
           summonerProfile.puuid,
           matchPage
@@ -73,7 +78,7 @@ const SummonerPage = ({ lolApi }) => {
         setMatchInfo((prevMatchInfo) => [...prevMatchInfo, ...newMatchInfo]);
         setMatchLoading(false);
       } catch (error) {
-        setError(error);
+        setError(true);
       }
     };
 
